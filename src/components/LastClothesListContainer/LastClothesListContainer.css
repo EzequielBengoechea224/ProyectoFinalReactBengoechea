@@ -1,0 +1,13 @@
+.container-flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-around;
+}
+
+
+.box{
+    height: 33%;
+    overflow: hidden;
+}

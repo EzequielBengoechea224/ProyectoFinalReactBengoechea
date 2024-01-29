@@ -2,9 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import "./App.css";
 
+//react-router-dom
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 //Components
 import Header from './components/Header/Header';
 import NavBar from "./components/NavBar/NavBar"
+
+//Pages
+import HomePage from './pages/HomePage/HomePage';
 
 //Firebase
 import { db } from "./firebase/firebaseConfig"
@@ -12,9 +18,9 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 
 const App = () => {
 
-  const [clothesData,setClothesData] = useState([]);
+  /* const [clothesData,setClothesData] = useState([]); */
 
-  useEffect(() =>{
+  /* useEffect(() =>{
     const getClothesData = async () =>{
       const q = query(collection(db, "clotesCollection"));
       const docs = []; 
@@ -25,19 +31,18 @@ const App = () => {
       console.log(docs);
     }
     getClothesData();
-  }, [])
+  }, []); */
 
   return (
-    <div className='App'>
-        <Header />
-        <NavBar/>
-        <div className='firstSection'>
-            <div className='fs-div'>
-              <h2>Bienvenido a Ecomerce</h2>
-              <p>Nuestros productos en oferta son</p>
-            </div>
-        </div>
-    </div>
+    <Router>
+      <div className='App'>
+          <Header />
+          <NavBar/> 
+          <Routes>
+            <Route path='/' element={<HomePage />}/>
+          </Routes> 
+      </div>
+    </Router>
   )
 
 }

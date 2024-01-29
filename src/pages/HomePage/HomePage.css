@@ -1,0 +1,41 @@
+.HomePage{
+    width: 100%;
+}
+
+.firstSection{
+    width: 100%;
+    height: 90vh;
+    background-image: url("https://en.idei.club/uploads/posts/2023-06/1685680623_en-idei-club-p-black-table-background-dizain-krasivo-2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+
+    display: grid;
+    grid-template-areas: 
+    "box1 box2";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100% 100%;
+  }
+  
+
+  .box1{
+    grid-area: box1;
+    height: 100%;
+    text-align: center;
+    
+  }
+
+  .box2{
+    grid-area: box2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+  }
+
+  

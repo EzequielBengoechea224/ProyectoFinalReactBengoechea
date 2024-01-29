@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar/NavBar"
 
 //Pages
 import HomePage from './pages/HomePage/HomePage';
+import DetailPage from './pages/DetailPage/DetailPage';
 
 //Firebase
 import { db } from "./firebase/firebaseConfig"
@@ -40,6 +41,7 @@ const App = () => {
           <NavBar/> 
           <Routes>
             <Route path='/' element={<HomePage />}/>
+            <Route path='/detail-page/:id' element={<DetailPage />}/>
           </Routes> 
       </div>
     </Router>

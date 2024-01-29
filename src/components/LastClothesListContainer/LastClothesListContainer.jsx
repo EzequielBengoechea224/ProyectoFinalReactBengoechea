@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import "./LastClothesListContainer.css"
+import { Link } from 'react-router-dom';
+
 //Firebase
 import { db } from "../../firebase/firebaseConfig"
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -32,7 +34,11 @@ const LastClothesListContainer = () => {
   return (
     <div className='container-flex'>
         {lastClothes.map((clothe) =>{
-            return <div className='box'> <ClotheCard key={clothe.id} clothe={clothe}/> </div>
+            return <Link to={`/detail-page/${clothe.id}`}>
+                      <div className='box'>
+                        <img src={clothe.img} alt={clothe.name} />
+                      </div>
+                    </Link> 
         })}
     </div>
   )

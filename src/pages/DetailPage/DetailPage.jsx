@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
+import "./DetailPage.css";
 
 //Firestore
 import { db } from "../../firebase/firebaseConfig"
@@ -30,14 +31,30 @@ const DetailPage = () => {
         setTimeout(() =>{
             setIsLoading(false)
         },3000)
-    }, []);
+    }, [id]);
 
     console.log(clothe)
   return (
-    <div>
+    <div className='mayor-container'>
         {isLoading ? (
           <p>Tratando de cargar</p>
-        ): <img src={clothe[0].img} alt="" />}
+        ): (
+          <div className='grid-container'>
+            <div className='box1'>
+              <img src={clothe[0].img} alt="" className='img'/> 
+            </div>
+            <div className='box2'>
+              <h2>{clothe[0].name}</h2>
+              <h3>Descripcion: {clothe[0].description} </h3>
+              <p>Precio: $<b>{clothe[0].price}</b></p>
+              <p>Categoria: <span>{clothe[0].type}</span></p>
+            </div>
+            <div className='box3'>
+              
+            </div>
+            {/* <img src={clothe[0].img} alt="" /> */}
+          </div>
+          )}
     </div>
   )
 }

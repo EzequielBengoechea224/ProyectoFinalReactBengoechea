@@ -14,8 +14,8 @@ import HomePage from './pages/HomePage/HomePage';
 import DetailPage from './pages/DetailPage/DetailPage';
 
 //Firebase
-import { db } from "./firebase/firebaseConfig"
-import { collection, query, where, getDocs } from "firebase/firestore";
+/* import { db } from "./firebase/firebaseConfig"
+import { collection, query, where, getDocs } from "firebase/firestore"; */
 
 const App = () => {
 

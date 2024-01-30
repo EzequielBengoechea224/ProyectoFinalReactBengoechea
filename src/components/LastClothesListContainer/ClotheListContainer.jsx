@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import "./LastClothesListContainer.css"
+import "./ClotheListContainer.css"
 import { Link } from 'react-router-dom';
 
 //Firebase
@@ -11,9 +11,9 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import ClotheCard from '../ClotheCard/ClotheCard';
 
 
-const LastClothesListContainer = () => {
+const ClotheListContainer = () => {
 
-    const [lastClothes,setLastClothes] = useState([])
+    const [clothes,setClothes] = useState([])
 
     useEffect(() =>{
         const getClothesData = async () =>{
@@ -24,24 +24,20 @@ const LastClothesListContainer = () => {
             docs.push({...doc.data(), id: doc.id})
           });
           console.log(docs);
-          const lastClothess = docs.splice(-3);
-          console.log(lastClothess);
-          setLastClothes(lastClothess)
+          setClothes(docs)
         }
         getClothesData();
       }, []);
 
   return (
-    <div className='container-flex'>
-        {lastClothes.map((clothe) =>{
-            return <Link to={`/detail-page/${clothe.id}`}>
-                      <div className='box'>
-                        <img src={clothe.img} alt={clothe.name} />
-                      </div>
-                    </Link> 
+    <div className='container-grid'>
+        {clothes.map((clothe) =>{
+          return(
+            <ClotheCard clothe={clothe}/>
+          )
         })}
     </div>
   )
 }
 
-export default LastClothesListContainer
+export default ClotheListContainer 

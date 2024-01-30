@@ -33,7 +33,9 @@ const ClotheListContainer = () => {
     <div className='container-grid'>
         {clothes.map((clothe) =>{
           return(
-            <ClotheCard clothe={clothe}/>
+            <Link to={`/detail-page/${clothe.id}`} key={clothe.id}>
+              <ClotheCard clothe={clothe}/>
+            </Link>
           )
         })}
     </div>

@@ -17,6 +17,7 @@ import NavBar from "./components/NavBar/NavBar"
 import HomePage from './pages/HomePage/HomePage';
 import DetailPage from './pages/DetailPage/DetailPage';
 import ShopPage from './pages/ShopPage/ShopPage';
+import CategoryPage from './pages/CategoryPage/CategoryPage';
 
 //Firebase
 /* import { db } from "./firebase/firebaseConfig"
@@ -50,6 +51,7 @@ const App = () => {
               <Route path='/' element={<HomePage />}/>
               <Route path='/detail-page/:id' element={<DetailPage />}/>
               <Route path='/shop' element={<ShopPage />}/>
+              <Route path='/category/:categoryId' element={<CategoryPage />}/>
             </Routes> 
         </div>
         </ShopProvider>

@@ -15,8 +15,8 @@ const NavBar = () => {
         <nav>
             <ul>
                 <Link to={"/"}>Home Page</Link>
-                <li>Categories</li>
-                <li>Contact</li>
+                <Link to={"/category/remera"}>Remeras</Link>
+                <Link to={"/category/pantalon"}>Pantalones</Link>
                 <Link to={"/shop"} className='li-sales'><ShoppingCartIcon/> {sales}</Link>
             </ul>
         </nav>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useContext } from 'react'
 import { useParams } from 'react-router';
 import "./DetailPage.css";
 import { Button } from '@mui/material';
+
 
 
 
@@ -18,11 +19,17 @@ import { Link } from 'react-router-dom';
 import { AddIconn } from '../../components/AddIcon/AddIcon';
 import RemoveIconn from '../../components/RemoveIcon/RemoveIcon';
 
+//Context
+import { SalesContext } from '../../context/salesContext';
+
 const DetailPage = () => {
     const [price,setPrice] = useState(0);
     const [isLoading,setIsLoading] = useState(true);
     const [clothe,SetClothe] = useState({});
+    const {sales,setSales} = useContext(SalesContext);    
     let { id } = useParams();
+
+    console.log("la cant de sales es de: ", sales)
     
     useEffect(() =>{
           const getClothesData = async () =>{
@@ -44,10 +51,14 @@ const DetailPage = () => {
     //funcion para boton de suma
     const handlerSum = () =>{
       setPrice(price + clothe[0].price);
+      setSales(sales + 1)
     }
     const handlerRest = () =>{
       if(price != 0){
         setPrice(price - clothe[0].price);
+      }
+      if(sales != 0){
+        setSales(sales - 1)
       }
     }
   return (

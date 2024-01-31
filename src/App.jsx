@@ -2,6 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import "./App.css";
 
+//Context
+import { SalesProvider } from './context/salesContext';
+
 //react-router-dom
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -36,14 +39,16 @@ const App = () => {
 
   return (
     <Router>
-      <div className='App'>
+      <SalesProvider>
+        <div className='App'>
           <Header />
           <NavBar/> 
-          <Routes>
-            <Route path='/' element={<HomePage />}/>
-            <Route path='/detail-page/:id' element={<DetailPage />}/>
-          </Routes> 
-      </div>
+            <Routes>
+              <Route path='/' element={<HomePage />}/>
+              <Route path='/detail-page/:id' element={<DetailPage />}/>
+            </Routes> 
+        </div>
+      </SalesProvider>
     </Router>
   )
 

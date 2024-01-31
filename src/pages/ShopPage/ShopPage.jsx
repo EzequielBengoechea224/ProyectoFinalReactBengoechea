@@ -4,20 +4,38 @@ import { useState, useContext } from 'react'
 import { ShopContext } from '../../context/ShopContext'
 
 const ShopPage = () => {
-
-    const {shopVec, setShopVec} = useContext(ShopContext)
-
-    console.log(shopVec);
-  return (
-    <div className='grid-container-shop'>
-        <div className='box-1-shop'>
-            
+    const { shopVec } = useContext(ShopContext);
+    
+    return (
+        <div className='ShopPage'>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Img</td>
+                        <td>Nombre</td>
+                        <td>Precio</td>
+                        <td>Cantidad</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {shopVec.map((item) => {
+                        return item.map((clothe, clotheIndex) => {
+                            return (
+                                <tr key={clotheIndex}>
+                                    <td key={clotheIndex}>
+                                        <img src={clothe.img} alt="" />
+                                    </td>
+                                    <td>{clothe.name}</td>
+                                    <td>{clothe.price}</td>
+                                    {/* Agrega las celdas para Precio y Cantidad si es necesario */}
+                                </tr>
+                            );
+                        });
+                    })}
+                </tbody>
+            </table>
         </div>
-        <div className='box-2-shop'>clau</div>
-        <div className='box-3-shop'>bunipola</div>
-        <div className='box-4-shop'>gallo</div>
-    </div>
-  )
+    );
 }
 
 export default ShopPage

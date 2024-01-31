@@ -4,6 +4,7 @@ import "./App.css";
 
 //Context
 import { SalesProvider } from './context/salesContext';
+import { ShopProvider } from "./context/ShopContext";
 
 //react-router-dom
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -15,6 +16,7 @@ import NavBar from "./components/NavBar/NavBar"
 //Pages
 import HomePage from './pages/HomePage/HomePage';
 import DetailPage from './pages/DetailPage/DetailPage';
+import ShopPage from './pages/ShopPage/ShopPage';
 
 //Firebase
 /* import { db } from "./firebase/firebaseConfig"
@@ -40,14 +42,17 @@ const App = () => {
   return (
     <Router>
       <SalesProvider>
+        <ShopProvider>
         <div className='App'>
           <Header />
           <NavBar/> 
             <Routes>
               <Route path='/' element={<HomePage />}/>
               <Route path='/detail-page/:id' element={<DetailPage />}/>
+              <Route path='/shop' element={<ShopPage />}/>
             </Routes> 
         </div>
+        </ShopProvider>
       </SalesProvider>
     </Router>
   )

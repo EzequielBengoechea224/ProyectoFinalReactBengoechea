@@ -17,7 +17,7 @@ const NavBar = () => {
                 <Link to={"/"}>Home Page</Link>
                 <li>Categories</li>
                 <li>Contact</li>
-                <li className='li-sales'><ShoppingCartIcon/> {sales}</li>
+                <Link to={"/shop"} className='li-sales'><ShoppingCartIcon/> {sales}</Link>
             </ul>
         </nav>
     </div>

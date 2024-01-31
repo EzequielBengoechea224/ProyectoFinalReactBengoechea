@@ -21,15 +21,19 @@ import RemoveIconn from '../../components/RemoveIcon/RemoveIcon';
 
 //Context
 import { SalesContext } from '../../context/salesContext';
+import { ShopContext } from '../../context/ShopContext';
 
 const DetailPage = () => {
+    const [clotheCant, setClotheCant] = useState(0);
     const [price,setPrice] = useState(0);
     const [isLoading,setIsLoading] = useState(true);
     const [clothe,SetClothe] = useState({});
     const {sales,setSales} = useContext(SalesContext);    
     let { id } = useParams();
+    const {shopVec, setShopVec} = useContext(ShopContext);
+    let precioCero = true;
 
-    console.log("la cant de sales es de: ", sales)
+    
     
     useEffect(() =>{
           const getClothesData = async () =>{
@@ -51,16 +55,43 @@ const DetailPage = () => {
     //funcion para boton de suma
     const handlerSum = () =>{
       setPrice(price + clothe[0].price);
-      setSales(sales + 1)
+      setSales(sales + 1);
+      setClotheCant(clotheCant + 1);
     }
     const handlerRest = () =>{
       if(price != 0){
         setPrice(price - clothe[0].price);
+        setClotheCant(clotheCant - 1);
       }
       if(sales != 0){
-        setSales(sales - 1)
+        setSales(sales - 1);
       }
     }
+
+  const handlerCarrito = () =>{
+    if(price!=0){
+      precioCero = false;
+    }else{
+      precioCero = true;
+    }
+    
+    if(!precioCero){
+    precioCero = false;
+    const vecCar = [];
+    const vecHelper = shopVec; 
+    vecCar.push({...clothe[0], salePrice: price});
+    const updateObject = [...vecHelper, vecCar]
+    console.log(updateObject);
+    setShopVec(updateObject)
+
+    //Reseto price
+    setPrice(0);
+
+    }else{
+      console.log("Debe agregar al menos un producto")
+    }
+  }
+  
   return (
     <div className='mayor-container'>
         {isLoading ? (
@@ -77,7 +108,7 @@ const DetailPage = () => {
               <p>Categoria: <span>{clothe[0].type}</span></p>
             </div>
             <div className='box-3'>
-              <Button variant="contained">Agregar al carrito</Button>
+              <Button variant="contained" onClick={handlerCarrito}>Agregar al carrito</Button>
               <div className='btn-container'>
                 <button onClick={handlerRest}>        
                   <RemoveIconn />

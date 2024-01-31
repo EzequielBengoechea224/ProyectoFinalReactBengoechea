@@ -25,6 +25,7 @@ import { ShopContext } from '../../context/ShopContext';
 
 const DetailPage = () => {
     const [clotheCant, setClotheCant] = useState(0);
+    const [cantUnits, setCantUnits] = useState(0);
     const [price,setPrice] = useState(0);
     const [isLoading,setIsLoading] = useState(true);
     const [clothe,SetClothe] = useState({});
@@ -57,6 +58,7 @@ const DetailPage = () => {
       setPrice(price + clothe[0].price);
       setSales(sales + 1);
       setClotheCant(clotheCant + 1);
+      setCantUnits(cantUnits + 1)
     }
     const handlerRest = () =>{
       if(price != 0){
@@ -65,6 +67,7 @@ const DetailPage = () => {
       }
       if(sales != 0){
         setSales(sales - 1);
+        setCantUnits(cantUnits - 1)
       }
     }
 
@@ -79,7 +82,7 @@ const DetailPage = () => {
     precioCero = false;
     const vecCar = [];
     const vecHelper = shopVec; 
-    vecCar.push({...clothe[0], salePrice: price});
+    vecCar.push({...clothe[0], salePrice: price, cantUnits: cantUnits});
     const updateObject = [...vecHelper, vecCar]
     console.log(updateObject);
     setShopVec(updateObject)
@@ -91,7 +94,7 @@ const DetailPage = () => {
       console.log("Debe agregar al menos un producto")
     }
   }
-  
+  console.log("cant Units",cantUnits);
   return (
     <div className='mayor-container'>
         {isLoading ? (

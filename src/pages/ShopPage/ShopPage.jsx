@@ -7,6 +7,8 @@ import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig'
 import CargaCompleta from '../../components/CargaCompletada/CargaCompletada';
 
+import { SalesContext } from '../../context/salesContext'
+
 const initialState = {
     name:"",
     lastName:"",

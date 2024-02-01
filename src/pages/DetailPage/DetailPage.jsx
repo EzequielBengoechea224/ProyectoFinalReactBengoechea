@@ -76,10 +76,10 @@ const DetailPage = () => {
   const handlerCarrito = () =>{
     if(price!=0){
       precioCero = false;
-      bandPrimero = true;
+      
     }else{
       precioCero = true;
-      bandPrimero = false;
+      
     }
     
     if(!precioCero){

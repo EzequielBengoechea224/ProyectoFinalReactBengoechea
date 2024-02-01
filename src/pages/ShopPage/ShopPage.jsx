@@ -55,13 +55,17 @@ const ShopPage = () => {
         e.preventDefault();
         console.log(values)
         // añado shopVec a values
-        const docRef = await addDoc(collection(db, "purchaseCollection"), {
-            values,
-            vecCompras
-        });
-        console.log("Document written with ID: ", docRef.id);
-        setIdCompra(docRef.id)
-        setValues(initialState);
+            if(values.email === values.confirmEmail){
+            const docRef = await addDoc(collection(db, "purchaseCollection"), {
+                values,
+                vecCompras
+            });
+            console.log("Document written with ID: ", docRef.id);
+            setIdCompra(docRef.id)
+            setValues(initialState);
+        }else{
+            alert("Los mails son distintos, por favor ingrese los mismos")
+        }
     }
     
     console.log(values);

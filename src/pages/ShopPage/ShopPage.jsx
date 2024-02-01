@@ -21,7 +21,17 @@ const ShopPage = () => {
     
     const [values, setValues] = useState(initialState);
 
-    
+    const vecCompras = [];    
+
+    shopVec.map((item) => {
+        item.map((clothe)=>{
+            vecCompras.push(clothe)
+        })
+    })
+
+    console.log("soyVecCompras", vecCompras)
+        
+
 
     useEffect(() =>{
         let valorTotal = 0
@@ -41,9 +51,10 @@ const ShopPage = () => {
     const handlerOnSubmit = async(e) =>{
         e.preventDefault();
         console.log(values)
-        // Add a new document with a generated id.
+        // añado shopVec a values
         const docRef = await addDoc(collection(db, "purchaseCollection"), {
             values,
+            vecCompras
         });
         console.log("Document written with ID: ", docRef.id);
         setIdCompra(docRef.id)

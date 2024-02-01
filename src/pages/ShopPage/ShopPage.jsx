@@ -63,6 +63,8 @@ const ShopPage = () => {
             console.log("Document written with ID: ", docRef.id);
             setIdCompra(docRef.id)
             setValues(initialState);
+            setShopVec([])
+            setSales(0)
         }else{
             alert("Los mails son distintos, por favor ingrese los mismos")
         }

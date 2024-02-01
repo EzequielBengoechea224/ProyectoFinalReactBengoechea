@@ -2,10 +2,26 @@ import React, { useEffect } from 'react'
 import "./ShopPage.css"
 import { useState, useContext } from 'react'
 import { ShopContext } from '../../context/ShopContext'
+import { TextField } from '@mui/material'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '../../firebase/firebaseConfig'
+import CargaCompleta from '../../components/CargaCompletada/CargaCompletada';
+
+const initialState = {
+    name:"",
+    lastName:"",
+    email:"",
+    confirmEmail:"",
+};
 
 const ShopPage = () => {
     const { shopVec } = useContext(ShopContext);
     const [precioTotal,setPrecioTotal] = useState(0);
+    const [idCompra,setIdCompra] = useState("");
+    
+    const [values, setValues] = useState(initialState);
+
+    
 
     useEffect(() =>{
         let valorTotal = 0
@@ -16,7 +32,25 @@ const ShopPage = () => {
         });
         setPrecioTotal(valorTotal)
     },[shopVec])
+
+    const handlerOnChange = (e) =>{
+        const {value, name} = e.target;
+        setValues({...values, [name]: value})
+    }
+
+    const handlerOnSubmit = async(e) =>{
+        e.preventDefault();
+        console.log(values)
+        // Add a new document with a generated id.
+        const docRef = await addDoc(collection(db, "purchaseCollection"), {
+            values,
+        });
+        console.log("Document written with ID: ", docRef.id);
+        setIdCompra(docRef.id)
+        setValues(initialState);
+    }
     
+    console.log(values);
     console.log("Hola soy precio total: ",precioTotal);
     return (
         <div className='ShopPage'>
@@ -46,6 +80,54 @@ const ShopPage = () => {
                     })}
                 </tbody>
             </table>
+
+            {precioTotal === 0 ? (null
+                ):(
+                    <div className='container-1'>
+                        <form className='formContainer' onSubmit={handlerOnSubmit}>
+                            <TextField 
+                                placeholder='name'
+                                style={{margin: "10", width:"400px"}}
+                                name='name'
+                                value={values.name}
+                                onChange={handlerOnChange}
+                                required
+                            />
+                            <TextField 
+                                placeholder='Last-Name'
+                                style={{margin: "10", width:"400px"}}
+                                name='lastName'
+                                value={values.lastName}
+                                onChange={handlerOnChange}
+                                required
+                            />
+                            <TextField 
+                                placeholder='email'
+                                style={{margin: "10", width:"400px"}}
+                                name='email'
+                                value={values.email}
+                                onChange={handlerOnChange}
+                                required
+                            />
+                            <TextField 
+                                placeholder='Confirm email'
+                                style={{margin: "10", width:"400px"}}
+                                name='confirmEmail'
+                                value={values.confirmEmail}
+                                onChange={handlerOnChange}
+                                required
+                            />
+
+                            <button className='btnForm'>Send</button>
+                            {idCompra != "" ? (
+                                <CargaCompleta idCompra={idCompra}/>
+                                ):(
+                                    null
+                                )};
+
+                        </form>
+                    </div>
+                )}
         </div>
     );
 }

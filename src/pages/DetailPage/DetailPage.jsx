@@ -18,6 +18,7 @@ import ClotheCard from '../../components/ClotheCard/ClotheCard';
 import { Link } from 'react-router-dom';
 import { AddIconn } from '../../components/AddIcon/AddIcon';
 import RemoveIconn from '../../components/RemoveIcon/RemoveIcon';
+import Spinner from '../../components/Spinner/Spinner';
 
 //Context
 import { SalesContext } from '../../context/salesContext';
@@ -33,6 +34,7 @@ const DetailPage = () => {
     let { id } = useParams();
     const {shopVec, setShopVec} = useContext(ShopContext);
     let precioCero = true;
+    
 
     
     
@@ -74,8 +76,10 @@ const DetailPage = () => {
   const handlerCarrito = () =>{
     if(price!=0){
       precioCero = false;
+      bandPrimero = true;
     }else{
       precioCero = true;
+      bandPrimero = false;
     }
     
     if(!precioCero){
@@ -98,7 +102,7 @@ const DetailPage = () => {
   return (
     <div className='mayor-container'>
         {isLoading ? (
-          <p>Tratando de cargar</p>
+          <Spinner />
         ): (
           <div className='grid-container'>
             <div className='box-1'>
@@ -120,8 +124,8 @@ const DetailPage = () => {
                   <AddIconn />
                 </button>
               </div>
-
               <p>Precio total: ${price}</p>
+              <b>Para agregar al carrito, por lo menos requiere una unidad</b>
             </div>
             {/* <img src={clothe[0].img} alt="" /> */}
           </div>

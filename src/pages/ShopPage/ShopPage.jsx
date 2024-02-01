@@ -6,6 +6,7 @@ import { TextField } from '@mui/material'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig'
 import CargaCompleta from '../../components/CargaCompletada/CargaCompletada';
+import { SalesContext } from '../../context/salesContext'
 
 const initialState = {
     name:"",
@@ -15,10 +16,10 @@ const initialState = {
 };
 
 const ShopPage = () => {
-    const { shopVec } = useContext(ShopContext);
+    const { shopVec,setShopVec } = useContext(ShopContext);
+    const {setSales} = useContext(SalesContext);
     const [precioTotal,setPrecioTotal] = useState(0);
-    const [idCompra,setIdCompra] = useState("");
-    
+    const [idCompra,setIdCompra] = useState("");   
     const [values, setValues] = useState(initialState);
 
     const vecCompras = [];    
@@ -51,14 +52,20 @@ const ShopPage = () => {
     const handlerOnSubmit = async(e) =>{
         e.preventDefault();
         console.log(values)
-        // añado shopVec a values
-        const docRef = await addDoc(collection(db, "purchaseCollection"), {
-            values,
-            vecCompras
-        });
-        console.log("Document written with ID: ", docRef.id);
-        setIdCompra(docRef.id)
-        setValues(initialState);
+        if(values.email === values.confirmEmail){
+            const docRef = await addDoc(collection(db, "purchaseCollection"), {
+                values,
+                vecCompras
+            });
+            console.log("Document written with ID: ", docRef.id);
+            setIdCompra(docRef.id)
+            setValues(initialState);
+            keepShowing = true;
+            setShopVec([]) 
+            setSales(0)
+        }else{
+            alert("No se ha cargado su carrito porque Los mails no coinciden, por favor corrijalos!")
+        }
     }
     
     console.log(values);
@@ -92,7 +99,7 @@ const ShopPage = () => {
                 </tbody>
             </table>
 
-            {precioTotal === 0 ? (null
+            {precioTotal === 0 ? (<h2>Por Favor, ingrese algun elemento a su carrito</h2>
                 ):(
                     <div className='container-1'>
                         <form className='formContainer' onSubmit={handlerOnSubmit}>
@@ -130,15 +137,16 @@ const ShopPage = () => {
                             />
 
                             <button className='btnForm'>Send</button>
-                            {idCompra != "" ? (
-                                <CargaCompleta idCompra={idCompra}/>
-                                ):(
-                                    null
-                                )};
-
+                            
                         </form>
                     </div>
                 )}
+                
+                {idCompra != "" ? (
+                    <CargaCompleta idCompra={idCompra}/>
+                ):(
+                    null
+                )};
         </div>
     );
 }

@@ -6,6 +6,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import ClotheCard from '../../components/ClotheCard/ClotheCard';
 import "./categoryPage.css";
 import { Link } from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner';
 
 const CategoryPage = () => {
     let {categoryId} = useParams();
@@ -37,7 +38,7 @@ const CategoryPage = () => {
   return (
     <div>
         {isLoading ? (
-            <p>Tratando de cargar</p>
+            <Spinner />
         ):(
             <div className='grid-container-2'>
                 {clothesData.map((clothe) =>{

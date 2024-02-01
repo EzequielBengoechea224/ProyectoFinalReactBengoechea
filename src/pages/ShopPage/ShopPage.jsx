@@ -6,7 +6,6 @@ import { TextField } from '@mui/material'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig'
 import CargaCompleta from '../../components/CargaCompletada/CargaCompletada';
-import { SalesContext } from '../../context/salesContext'
 
 const initialState = {
     name:"",
@@ -19,7 +18,8 @@ const ShopPage = () => {
     const { shopVec,setShopVec } = useContext(ShopContext);
     const {setSales} = useContext(SalesContext);
     const [precioTotal,setPrecioTotal] = useState(0);
-    const [idCompra,setIdCompra] = useState("");   
+    const [idCompra,setIdCompra] = useState("");
+    
     const [values, setValues] = useState(initialState);
 
     const vecCompras = [];    
@@ -52,20 +52,14 @@ const ShopPage = () => {
     const handlerOnSubmit = async(e) =>{
         e.preventDefault();
         console.log(values)
-        if(values.email === values.confirmEmail){
-            const docRef = await addDoc(collection(db, "purchaseCollection"), {
-                values,
-                vecCompras
-            });
-            console.log("Document written with ID: ", docRef.id);
-            setIdCompra(docRef.id)
-            setValues(initialState);
-            keepShowing = true;
-            setShopVec([]) 
-            setSales(0)
-        }else{
-            alert("No se ha cargado su carrito porque Los mails no coinciden, por favor corrijalos!")
-        }
+        // añado shopVec a values
+        const docRef = await addDoc(collection(db, "purchaseCollection"), {
+            values,
+            vecCompras
+        });
+        console.log("Document written with ID: ", docRef.id);
+        setIdCompra(docRef.id)
+        setValues(initialState);
     }
     
     console.log(values);

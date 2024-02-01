@@ -7,6 +7,7 @@
 
 table{
     width: 100%;
+    border-bottom: 2px solid black;
 }
 
 .ShopPage table tbody tr td img {
@@ -14,11 +15,11 @@ table{
     height: auto;
 }
 
-.container-1{
-    border: 2px solid black;
-}
+
+
 
 .formContainer{
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     row-gap: 1vh;
